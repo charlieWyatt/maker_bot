@@ -1,6 +1,8 @@
 {
   "files": [],
-  "lib": ["DOM", "ES2015", "ES2015.Promise"],
+  "compilerOptions": {
+    "lib": ["DOM", "ES2015", "ES2015.Promise"],
+  },
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
