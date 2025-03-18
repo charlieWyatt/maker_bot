@@ -1,0 +1,22 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Charlie Wyatt",email = "charlie@relevanceai.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi (>=0.115.11,<0.116.0)",
+    "modal (>=0.73.112,<0.74.0)",
+    "uvicorn (>=0.34.0,<0.35.0)",
+    "relevanceai (>=10.2.2,<11.0.0)",
+    "openai (>=1.66.3,<2.0.0)",
+    "python-dotenv (>=1.0.1,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
