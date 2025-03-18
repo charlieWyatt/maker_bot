@@ -4,6 +4,7 @@ import HelloWorld from './components/Chatbox.vue'
 
 <template>
   <div>
+    <h1>Modal Labs Demo!</h1>
     <HelloWorld msg="Modal Labs Demo!" />
   </div>
 </template>

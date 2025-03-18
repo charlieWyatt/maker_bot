@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from openai import OpenAI
+import os
 
 
 load_dotenv()
@@ -52,10 +53,12 @@ def llm_chat(input_msg: InputMessage):
             {"role": "user", "content": input_msg.input_msg}
         ]
     )
+    if os.environ["DEBUG_MODE"] == "true":
+        print(response.choices[0].message.content)
     return JSONResponse(content={"generated_text": response.choices[0].message.content})
 
 # Modal function to serve FastAPI app
-@app.function(secrets=[modal.Secret.from_name("openai-secret")])
+@app.function(secrets=[modal.Secret.from_name("openai-secret"), modal.Secret.from_name("feature-flags")])
 @modal.asgi_app()
 def fastapi_app():
     return web_app
