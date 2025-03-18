@@ -78,8 +78,8 @@ async function sendMessage() {
 .chat-container {
   display: flex;
   flex-direction: column;
-  width: 50vw;      /* Changed to 50% of viewport width */
-  height: 50vh;      /* 50% of viewport height */
+  width: 90vw;      /* Wider on mobile */
+  height: 80vh;     /* Taller on mobile */
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -87,10 +87,18 @@ async function sendMessage() {
   margin: 0 auto;    /* Center the container horizontally */
 }
 
+/* Media query for larger screens */
+@media (min-width: 768px) {
+  .chat-container {
+    width: 50vw;
+    height: 50vh;
+  }
+}
+
 /* Messages take up all vertical space except chat box */
 .messages {
   flex: 1;
-  padding: 20px;
+  padding: 15px;    /* Slightly reduced padding on mobile */
   overflow-y: auto;
   background-color: #f8f8f8;
   display: flex;
@@ -99,10 +107,16 @@ async function sendMessage() {
 }
 
 .message {
-  max-width: 70%;
+  max-width: 85%;   /* Wider messages on mobile */
   padding: 10px 15px;
   border-radius: 15px;
   word-wrap: break-word;
+}
+
+@media (min-width: 768px) {
+  .message {
+    max-width: 70%;
+  }
 }
 
 .user-message {
@@ -123,17 +137,18 @@ async function sendMessage() {
 /* Input box */
 .chat-box {
   display: flex;
-  gap: 10px;
-  padding: 10px;
+  gap: 8px;         /* Slightly reduced gap on mobile */
+  padding: 8px;     /* Slightly reduced padding on mobile */
   border-top: 1px solid #ccc;
   background-color: white;
 }
 
 input[type='text'] {
   flex: 1;
-  padding: 10px;
+  padding: 12px;    /* Slightly larger touch target */
   border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 16px;  /* Prevent zoom on mobile */
 }
 
 input[type='text']:disabled {
@@ -142,12 +157,14 @@ input[type='text']:disabled {
 }
 
 button {
-  padding: 10px 20px;
+  padding: 12px 20px; /* Larger touch target */
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 16px;   /* Larger text for mobile */
+  min-width: 80px;   /* Ensure button isn't too small */
 }
 
 button:hover {
