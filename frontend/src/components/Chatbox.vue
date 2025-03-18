@@ -79,6 +79,8 @@ async function sendMessage() {
   display: flex;
   flex-direction: column;
   width: 90vw;      /* Wider on mobile */
+  margin-left: auto;
+  margin-right: auto;
   height: 80vh;     /* Taller on mobile */
   box-sizing: border-box;
   border: 1px solid #ccc;
