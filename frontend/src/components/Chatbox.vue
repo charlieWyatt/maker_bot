@@ -18,7 +18,7 @@ async function sendMessage() {
 
   try {
     const res = await axios.post(
-      'https://charliewyatt--example-fastapi-echo-fastapi-app.modal.run/llm_chat',
+      'https://charliewyatt--example-fastapi-echo-fastapi-app-dev.modal.run/input_msg',
       { input_msg: message.value }
     )
     messages.value.push({
