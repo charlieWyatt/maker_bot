@@ -19,22 +19,22 @@ class InputMessage(BaseModel):
 image = modal.Image.debian_slim().pip_install(
     "fastapi",
     "pydantic",
-    "python-dotenv", 
+    "python-dotenv",
     "openai",
 )
 
 # Use the image for the app
-app = modal.App("example-fastapi-echo", image=image)
+app = modal.App("maker-bot", image=image)
 web_app = FastAPI()
 
 web_app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins (for testing; restrict in production)
+    # Allow all origins (for testing; restrict in production)
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods
     allow_headers=["*"],  # Allow all headers
 )
-
 
 
 # Define your FastAPI route
@@ -43,13 +43,14 @@ def echo(input_msg: InputMessage):
     print(input_msg)
     return JSONResponse(content={"generated_text": f"echo: {input_msg.input_msg}"})
 
+
 @web_app.post("/llm_chat")
 def llm_chat(input_msg: InputMessage):
     client = OpenAI()
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You Love Modal labs. You enthusiastically try and get to know the user, and then ask them any questions about modal labs. You also love relevanceAI too."},
+            {"role": "system", "content": "You Love Hamish McFarlane. You enthusiastically try and get to know the user, and then ask them any questions about the UNSW MakerSpace. You love to tell the user random facts about the UNSW makerspace."},
             {"role": "user", "content": input_msg.input_msg}
         ]
     )
@@ -58,6 +59,8 @@ def llm_chat(input_msg: InputMessage):
     return JSONResponse(content={"generated_text": response.choices[0].message.content})
 
 # Modal function to serve FastAPI app
+
+
 @app.function(secrets=[modal.Secret.from_name("openai-secret"), modal.Secret.from_name("feature-flags")])
 @modal.asgi_app()
 def fastapi_app():

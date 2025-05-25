@@ -1,21 +1,25 @@
-[project]
+[tool.poetry]
 name = "backend"
 version = "0.1.0"
 description = ""
-authors = [
-    {name = "Charlie Wyatt",email = "charlie@relevanceai.com"}
-]
+authors = ["Charlie Wyatt <charlie@relevanceai.com>"]
 readme = "README.md"
-requires-python = ">=3.12"
-dependencies = [
-    "fastapi (>=0.115.11,<0.116.0)",
-    "modal (>=0.73.112,<0.74.0)",
-    "uvicorn (>=0.34.0,<0.35.0)",
-    "relevanceai (>=10.2.2,<11.0.0)",
-    "openai (>=1.66.3,<2.0.0)",
-    "python-dotenv (>=1.0.1,<2.0.0)"
-]
 
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+fastapi = ">=0.115.11,<0.116.0"
+modal = ">=0.73.112,<0.74.0"
+uvicorn = ">=0.34.0,<0.35.0"
+relevanceai = ">=10.2.2,<11.0.0"
+openai = ">=1.66.3,<2.0.0"
+python-dotenv = ">=1.0.1,<2.0.0"
+sentence-transformers = "^4.1.0"
+pymupdf = "^1.26.0"
+numpy = "^2.2.6"
+pdfminer-six = "^20250506"
+pdf2image = "^1.17.0"
+pytesseract = "^0.3.13"
+pillow = "^11.2.1"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
