@@ -17,13 +17,16 @@ async function sendMessage() {
 	});
 
 	try {
+		console.log("CHARLIE SAID: ", message.value);
+		console.log("PAST MESSAGES", JSON.stringify(messages.value, null, 2));
 		const res = await axios.post(
 			"https://charliewyatt--maker-bot-fastapi-app.modal.run/llm_chat",
-			{ 
-        input_msg: message.value, 
-        past_messages: messages
-      }
+			{
+				input_msg: message.value,
+				past_messages: messages.value,
+			}
 		);
+		console.log("MADE IT HERE", res);
 		messages.value.push({
 			text: res.data.generated_text,
 			isUser: false,
