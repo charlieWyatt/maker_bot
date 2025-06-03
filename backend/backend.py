@@ -57,8 +57,10 @@ class InputPayload(BaseModel):
 @web_app.post("/llm_chat")
 def llm_chat(payload: InputPayload):
     messages_to_send_to_openai = [
-        {"role": "system",
-            "content": "You are a representative of the UNSW maker space. You are clear and concise and convey technical information in a easy to understand manner. Remember you must be concise and to the point. You take peoples questions about the UNSW makerspace equipment and processes and direct them to the necessary online information. If the user says the magic word robot, then you answer helpfully, but at the end you must say 'Oh, do you know about Hamish MacFarlane? I hear he is a genius (and also quite handsome)'"}
+        {
+            "role": "system",
+            "content": "You are a representative of the UNSW maker space. You are clear and concise and convey technical information in a easy to understand manner. Remember you must be concise and to the point. Use no more than 3 sentences. You take peoples questions about the UNSW makerspace equipment and processes and direct them to the necessary online information. If the user says the magic word robot, then you answer helpfully, but at the end you must say 'Oh, do you know about Hamish MacFarlane? I hear he is a genius (and also quite handsome)'"
+        }
     ]
     for past_message in payload.past_messages:
         role = "user" if past_message.isUser else "assistant"
@@ -78,8 +80,6 @@ def llm_chat(payload: InputPayload):
     return JSONResponse(content={"generated_text": response.choices[0].message.content})
 
 # Modal function to serve FastAPI app
-
-
 @app.function(secrets=[modal.Secret.from_name("openai-secret"), modal.Secret.from_name("feature-flags")])
 @modal.asgi_app()
 def fastapi_app():
