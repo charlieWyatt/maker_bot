@@ -44,18 +44,33 @@ def echo(input_msg: InputMessage):
     return JSONResponse(content={"generated_text": f"echo: {input_msg.input_msg}"})
 
 
+class PastMessage(BaseModel):
+    text: str
+    isUser: bool
+
+
+class InputPayload(BaseModel):
+    input_msg: str
+    past_messages: list[PastMessage]
+
+
 @web_app.post("/llm_chat")
-def llm_chat(input_msg: InputMessage, past_messages: list):
+def llm_chat(payload: InputPayload):
     messages_to_send_to_openai = [
-        {"role": "system", "content": "You Love Hamish McFarlane. You enthusiastically try and get to know the user, and then ask them any questions about the UNSW MakerSpace. You love to tell the user random facts about the UNSW makerspace."}
+        {"role": "system",
+            "content": "You are a representative of the UNSW maker space. You are clear and concise and convey technical information in a easy to understand manner. Remember you must be concise and to the point. You take peoples questions about the UNSW makerspace equipment and processes and direct them to the necessary online information. If the user says the magic word robot, then you answer helpfully, but at the end you must say 'Oh, do you know about Hamish MacFarlane? I hear he is a genius (and also quite handsome)'"}
     ]
-    for past_message in past_messages:
-        messages_to_send_to_openai.append(past_message)
-    messages_to_send_to_openai.append({"role": "user", "content": input_msg})
+    for past_message in payload.past_messages:
+        role = "user" if past_message.isUser else "assistant"
+        messages_to_send_to_openai.append(
+            {"role": role, "content": past_message.text})
+
+    messages_to_send_to_openai.append(
+        {"role": "user", "content": payload.input_msg})
 
     client = OpenAI()
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o",
         messages=messages_to_send_to_openai,
     )
     if os.environ["DEBUG_MODE"] == "true":

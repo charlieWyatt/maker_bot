@@ -5,3 +5,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
 
 
+# TODO For charlie:
+- Describe what this is / what technologies are used
+- Explain how to change things
+
