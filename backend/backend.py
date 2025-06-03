@@ -45,14 +45,18 @@ def echo(input_msg: InputMessage):
 
 
 @web_app.post("/llm_chat")
-def llm_chat(input_msg: InputMessage):
+def llm_chat(input_msg: InputMessage, past_messages: list):
+    messages_to_send_to_openai = [
+        {"role": "system", "content": "You Love Hamish McFarlane. You enthusiastically try and get to know the user, and then ask them any questions about the UNSW MakerSpace. You love to tell the user random facts about the UNSW makerspace."}
+    ]
+    for past_message in past_messages:
+        messages_to_send_to_openai.append(past_message)
+    messages_to_send_to_openai.append({"role": "user", "content": input_msg})
+
     client = OpenAI()
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You Love Hamish McFarlane. You enthusiastically try and get to know the user, and then ask them any questions about the UNSW MakerSpace. You love to tell the user random facts about the UNSW makerspace."},
-            {"role": "user", "content": input_msg.input_msg}
-        ]
+        messages=messages_to_send_to_openai,
     )
     if os.environ["DEBUG_MODE"] == "true":
         print(response.choices[0].message.content)

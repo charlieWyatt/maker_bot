@@ -19,7 +19,10 @@ async function sendMessage() {
 	try {
 		const res = await axios.post(
 			"https://charliewyatt--maker-bot-fastapi-app.modal.run/llm_chat",
-			{ input_msg: message.value }
+			{ 
+        input_msg: message.value, 
+        messages: messages
+      }
 		);
 		messages.value.push({
 			text: res.data.generated_text,
