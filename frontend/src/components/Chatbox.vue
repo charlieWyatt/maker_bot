@@ -21,7 +21,7 @@ async function sendMessage() {
 			"https://charliewyatt--maker-bot-fastapi-app.modal.run/llm_chat",
 			{ 
         input_msg: message.value, 
-        messages: messages
+        past_messages: messages
       }
 		);
 		messages.value.push({
