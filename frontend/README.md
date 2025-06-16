@@ -6,6 +6,8 @@ Learn more about the recommended Project Setup and IDE Support in the [Vue Docs 
 
 
 # TODO For charlie:
-- Describe what this is / what technologies are used
-- Explain how to change things
-
+- How to run the frontend
+    - First, run `git pull` to get any changes that someone else has made
+    - From the "frontend" folder run the following two commands
+        - Then, run `npm install` to make sure you have any dependencies
+        - Then run `npm run dev`
