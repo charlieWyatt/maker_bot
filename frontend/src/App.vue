@@ -4,7 +4,7 @@ import HelloWorld from './components/Chatbox.vue'
 
 <template>
   <div>
-    <h1>Maker Bot hamish is cool</h1>
+    <h1>Maker Bot</h1>
     <HelloWorld/>
   </div>
 </template>
